@@ -61,22 +61,22 @@ Future<bool> windowsConnectToNetwork(
 
   // 断开当前连接
   // Disconnect the current connection
-  final disconnectResult = WlanDisconnect(
-    phClientHandle.value,
-    pInterfaceGuid,
-    nullptr,
-  );
+  // final disconnectResult = WlanDisconnect(
+  //   phClientHandle.value,
+  //   pInterfaceGuid,
+  //   nullptr,
+  // );
 
-  if (disconnectResult != ERROR_SUCCESS) {
-    free(pInterfaceGuid);
-    WlanFreeMemory(ppInterfaceList.value);
-    free(ppInterfaceList);
-    WlanCloseHandle(phClientHandle.value, nullptr);
-    free(phClientHandle);
-    free(pNegotiatedVersion);
-    CoUninitialize();
-    return false;
-  }
+  // if (disconnectResult != ERROR_SUCCESS) {
+  //   free(pInterfaceGuid);
+  //   WlanFreeMemory(ppInterfaceList.value);
+  //   free(ppInterfaceList);
+  //   WlanCloseHandle(phClientHandle.value, nullptr);
+  //   free(phClientHandle);
+  //   free(pNegotiatedVersion);
+  //   CoUninitialize();
+  //   return false;
+  // }
 
   // 创建 WLAN 配置文件 XML 字符串
   // Create the WLAN profile XML string
