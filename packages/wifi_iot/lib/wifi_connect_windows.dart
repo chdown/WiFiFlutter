@@ -141,12 +141,14 @@ Future<bool> windowsConnectToNetwork(
   // 设置连接参数并连接
   // Set connection parameters and connect
   final pConnectionParams = calloc<WLAN_CONNECTION_PARAMETERS>();
-  pConnectionParams.ref.wlanConnectionMode = wlan_connection_mode_profile;
+  //0
+  pConnectionParams.ref.wlanConnectionMode = 0;
   final pProfileName = ssid.toNativeUtf16();
   pConnectionParams.ref.strProfile = pProfileName.cast<Utf16>();
   pConnectionParams.ref.pDot11Ssid = nullptr;
   pConnectionParams.ref.pDesiredBssidList = nullptr;
-  pConnectionParams.ref.dot11BssType = dot11_BSS_type_infrastructure;
+  //1
+  pConnectionParams.ref.dot11BssType = 1;
   pConnectionParams.ref.dwFlags = 0;
 
   final connectResult = WlanConnect(
