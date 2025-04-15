@@ -93,15 +93,17 @@ Future<bool> windowsConnectToNetwork(
   <MSM>
     <security>
       <authEncryption>
-        <authentication>$security</authentication>
-        <encryption>AES</encryption>
+        <authentication>${security == 'NONE' ? 'open' : security}</authentication>
+        <encryption>${security == 'NONE' ? 'none' : 'AES'}</encryption>
         <useOneX>false</useOneX>
       </authEncryption>
+      ${security != 'NONE' ? '''
       <sharedKey>
         <keyType>passPhrase</keyType>
         <protected>false</protected>
         <keyMaterial>$password</keyMaterial>
       </sharedKey>
+      ''' : ''}
     </security>
   </MSM>
 </WLANProfile>''';
