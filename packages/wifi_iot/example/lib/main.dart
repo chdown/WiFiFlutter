@@ -32,6 +32,7 @@ class _WiFiConnectPageState extends State<WiFiConnectPage> {
   bool _isConnecting = false;
   String _connectionStatus = '';
   bool _hasPermissions = false;
+  NetworkSecurity _selectedSecurity = NetworkSecurity.WPA2PSK;
 
   @override
   void initState() {
@@ -78,7 +79,7 @@ class _WiFiConnectPageState extends State<WiFiConnectPage> {
       final success = await WiFiForIoTPlugin.connect(
         _ssidController.text,
         password: _passwordController.text,
-        security: NetworkSecurity.WPA2PSK,
+        security: _selectedSecurity,
       );
 
       setState(() {
@@ -128,6 +129,27 @@ class _WiFiConnectPageState extends State<WiFiConnectPage> {
               ),
               obscureText: true,
             ),
+            const SizedBox(height: 16),
+            DropdownButtonFormField<NetworkSecurity>(
+              value: _selectedSecurity,
+              decoration: const InputDecoration(
+                labelText: '加密方式',
+                border: OutlineInputBorder(),
+              ),
+              items: NetworkSecurity.values.map((NetworkSecurity security) {
+                return DropdownMenuItem<NetworkSecurity>(
+                  value: security,
+                  child: Text(_getSecurityName(security)),
+                );
+              }).toList(),
+              onChanged: (NetworkSecurity? newValue) {
+                if (newValue != null) {
+                  setState(() {
+                    _selectedSecurity = newValue;
+                  });
+                }
+              },
+            ),
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: _isConnecting ? null : _connectToWiFi,
@@ -153,5 +175,18 @@ class _WiFiConnectPageState extends State<WiFiConnectPage> {
         ),
       ),
     );
+  }
+
+  String _getSecurityName(NetworkSecurity security) {
+    switch (security) {
+      case NetworkSecurity.WPA:
+        return 'WPA';
+      case NetworkSecurity.WPA2PSK:
+        return 'WPA2-PSK';
+      case NetworkSecurity.WEP:
+        return 'WEP';
+      case NetworkSecurity.NONE:
+        return '无加密';
+    }
   }
 }
