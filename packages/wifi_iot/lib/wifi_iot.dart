@@ -14,10 +14,11 @@ enum WIFI_AP_STATE {
   WIFI_AP_STATE_FAILED
 }
 
-enum NetworkSecurity { WPA, WEP, NONE }
+enum NetworkSecurity { WPA, WPA2PSK, WEP, NONE }
 
 const serializeNetworkSecurityMap = <NetworkSecurity, String>{
   NetworkSecurity.WPA: "WPA",
+  NetworkSecurity.WPA2PSK: "WPA2PSK",
   NetworkSecurity.WEP: "WEP",
   NetworkSecurity.NONE: "NONE",
 };
@@ -661,8 +662,7 @@ class APClient {
   }
 }
 
-@Deprecated(
-    "This is discontinued, switch to new `wifi_scan` plugin by WiFiFlutter. "
+@Deprecated("This is discontinued, switch to new `wifi_scan` plugin by WiFiFlutter. "
     "Check - https://pub.dev/packages/wifi_scan")
 class WifiNetwork {
   String? ssid;
